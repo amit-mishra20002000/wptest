@@ -1,0 +1,25 @@
+{
+  "$schema": "https://schemas.extratheme.com/block/v1",
+  "apiVersion": 2,
+  "name": "top-5-wordpress-blogs/top-5-blogs",
+  "title": "Top 5 WordPress Blogs",
+  "category": "widgets",
+  "icon": "grid-view",
+  "editorScript": "script.js",
+  "editorStyle": "style.css",
+  "style": "style-frontend.css",
+  "attributes": {
+    "orderBy": {
+      "type": "string",
+      "default": "DESC"
+    },
+    "order": {
+      "type": "string",
+      "default": "publishDate"
+    },
+    "numberOfDisplay": {
+      "type": "number",
+      "default": 5
+    }
+  }
+}

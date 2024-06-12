@@ -1,0 +1,100 @@
+4. Write SQL statements
+	c. Write a query for the following statements
+
+		i. There is a sportswear database that stores information about clothes, clothing categories, colors, customers, and orders. It
+		contains five tables: color, customer, category, clothing, and clothing_order. [2 Marks]
+			1. Let's look at the schema for this database.
+				a. color
+					i. id
+					ii. name
+					iii. extra_fee
+				b. customer
+					i. id
+					ii. first_name
+					iii. last_name
+					iv. favorite_color_id
+				c. category
+					i. id
+					ii. name
+					iii. parent_category
+				d. clothing
+					i. id
+					ii. name
+					iii. size (ex. S, M, L, XL, 2XL, or 3XL)
+					iv. price
+					v. color_id
+					vi. category_id
+				3
+					e. clothing_order
+					i. id
+					ii. customer_id
+					iii. clothing_id
+					iv. items
+					v. order_date
+
+	Display the name of clothing items (name the column
+	clothes), their color (name the column color), and the last
+	name and first name of the customer(s) who bought this
+	apparel in their favorite color. Sort rows according to color,
+	in ascending order.
+
+QUERY OUTPUT:
+
+SELECT c.name AS clothes, co.name AS color, 
+       cus.last_name, cus.first_name
+FROM clothing_order co
+INNER JOIN clothing cl ON co.clothing_id = cl.id
+INNER JOIN customer cus ON co.customer_id = cus.id
+INNER JOIN color co ON cl.color_id = co.id
+WHERE cus.favorite_color_id = co.color_id
+ORDER BY co.name ASC;
+
+____________________________________________________________________
+
+There is a sportsclub database that stores information about
+runners and running events. It contains three tables: runner,
+event, and runner_event. [2 Marks]
+
+	1. Let's look at the schema for this database.
+		a. runner
+			i. id
+			ii. name
+			iii. main_distance
+			iv. age
+			v. gender
+		b. event
+			i. id
+			ii. name
+			iii. start_date
+			iv. end_date
+			v. city
+		c. runner_event
+			i. runner_id
+			ii. event_id
+	2. Display the distance and the number of runners there are for the following age categories: under 20, 20–29, 30–39, 40–49,
+	and over 50. Use the following column aliases: under_20,
+	age_20_29, age_30_39, age_40_49, and over_50.
+
+QUERY OUTPUT:
+
+SELECT r.main_distance,
+       COUNT(CASE WHEN r.age < 20 THEN 1 END) AS under_20,
+       COUNT(CASE WHEN r.age BETWEEN 20 AND 29 THEN 1 END) AS age_20_29,
+       COUNT(CASE WHEN r.age BETWEEN 30 AND 39 THEN 1 END) AS age_30_39,
+       COUNT(CASE WHEN r.age BETWEEN 40 AND 49 THEN 1 END) AS age_40_49,
+       COUNT(CASE WHEN r.age > 50 THEN 1 END) AS over_50
+FROM runner r
+INNER JOIN runner_event re ON r.id = re.runner_id
+GROUP BY r.main_distance
+ORDER BY r.main_distance;
+____________________________________________________________________
+
+3 Which query would you write to find every duplicate in a table? You should
+mention possible methods.
+
+QUERY OUTPUT:
+
+SELECT *
+FROM your_table
+GROUP BY col1, col2, ..., colN  -- Replace col1, col2, ..., colN with actual column names
+HAVING COUNT(*) > 1;
